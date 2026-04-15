@@ -49,19 +49,25 @@ export default defineConfig({
     },
   },
 
-  
+
   server: {
     host: true,
     port: 5173,
     strictPort: true,
 
-    // Fix: must be array OR true, not 'all'
     allowedHosts: true,
 
-    // Fix: only needed for tunnels, and should be complete
+    proxy: {
+      "/api": {
+        target: "http://backend:8080",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+
     hmr: {
       protocol: "wss",
       clientPort: 443,
     },
-  },
+  }
 })

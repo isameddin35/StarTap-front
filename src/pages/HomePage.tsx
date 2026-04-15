@@ -65,7 +65,7 @@ export default function HomePage() {
 
     const fetchStartups = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/jobs", {
+        const response = await fetch("/api/jobs", {
           headers: {
             "Authorization": `Bearer ${token}`
           }
