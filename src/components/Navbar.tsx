@@ -1,5 +1,5 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Link, useNavigate } from "react-router-dom";
+import { User } from "lucide-react";
 
 interface NavbarProps {
   isLoggedIn: boolean;
@@ -7,55 +7,41 @@ interface NavbarProps {
 }
 
 export default function Navbar({ isLoggedIn, setIsLoggedIn }: NavbarProps) {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <nav className="border-b border-gray-200 bg-white">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold text-blue-600">
-          StartTap
-        </Link>
+    <div className="w-full flex justify-between items-center px-6 py-4 border-b bg-white">
+      <Link to="/" className="text-xl font-bold">
+        StartTap
+      </Link>
 
-        <div className="flex items-center gap-3">
-          {isLoggedIn ? (
-            <Button
-              variant="outline"
+      <div className="flex items-center gap-4">
+        {!isLoggedIn ? (
+          <>
+            <Link to="/login" className="text-sm">Login</Link>
+            <Link to="/register" className="text-sm">Register</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/profile">
+              <User className="w-6 h-6 cursor-pointer text-gray-700 hover:text-black" />
+            </Link>
+
+            <button
               onClick={handleLogout}
-              className="border-gray-300 text-gray-700 hover:bg-gray-50"
+              className="text-sm text-red-500"
             >
               Logout
-            </Button>
-          ) : (
-            <>
-              <Link to="/login">
-                <Button
-                  variant="outline"
-                  className={`border-gray-300 text-gray-700 hover:bg-gray-50 ${
-                    location.pathname === '/login' ? 'bg-gray-100' : ''
-                  }`}
-                >
-                  Login
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button
-                  className={`bg-gray-900 text-white hover:bg-gray-800 ${
-                    location.pathname === '/register' ? 'ring-2 ring-offset-2 ring-gray-900' : ''
-                  }`}
-                >
-                  Register
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
+            </button>
+          </>
+        )}
       </div>
-    </nav>
+    </div>
   );
 }

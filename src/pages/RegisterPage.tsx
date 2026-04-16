@@ -5,7 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
-export default function RegisterPage() {
+interface RegisterPageProps {
+  setIsLoggedIn: (value: boolean) => void;
+}
+
+
+export default function RegisterPage({ setIsLoggedIn }: RegisterPageProps) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -38,6 +43,9 @@ export default function RegisterPage() {
 
     // optional: if backend returns token → store it
     localStorage.setItem("token", data.accessToken);
+
+    setIsLoggedIn(true); // 🔥 bunu əlavə et
+
 
     navigate("/");
 

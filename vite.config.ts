@@ -59,15 +59,11 @@ export default defineConfig({
 
     proxy: {
       "/api": {
-        target: "http://backend:8080",
+        target: "http://localhost:8080",
         changeOrigin: true,
         secure: false,
       },
     },
 
-    hmr: {
-      protocol: "wss",
-      clientPort: 443,
-    },
   }
 })
