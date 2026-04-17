@@ -57,11 +57,27 @@ export default defineConfig({
 
     allowedHosts: true,
 
+    // proxy: {
+    //   "/api": {
+    //     target: "http://backend:8080",
+    //     changeOrigin: true,
+    //     secure: false,
+    //   },
+    // },
+
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: "http://backend:8080",
         changeOrigin: true,
         secure: false,
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq, req) => {
+            // Forward the real origin so Spring CORS sees it correctly
+            if (req.headers.origin) {
+              proxyReq.setHeader('origin', req.headers.origin);
+            }
+          });
+        },
       },
     },
 
