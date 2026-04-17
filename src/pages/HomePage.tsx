@@ -67,7 +67,7 @@ export default function HomePage() {
       try {
         const response = await fetch("/api/jobs", {
           headers: {
-            "Authorization": `Bearer ${token}`
+            // "Authorization": `Bearer ${token}`
           }
         });
 
