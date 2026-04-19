@@ -59,7 +59,6 @@ export default function HomePage() {
   const [latestJobs, setLatestJobs] = useState<JobResponseDto[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
 
     // console.log(token);
 
