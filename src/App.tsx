@@ -5,6 +5,9 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
+import VacancyDetailPage from './pages/VacancyDetails';
+import StartupDetailPage from './pages/StartupDetails';
+import CreateStartupPage from './pages/CreateStartupPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,6 +46,13 @@ function App() {
             />
 
             <Route path="*" element={<Navigate to="/" replace />} />
+
+            <Route path="/vacancies/:id" element={<VacancyDetailPage />} />
+
+            <Route path="/startups/:id" element={<StartupDetailPage />} />
+
+            <Route path="/startups/create" element={<CreateStartupPage />} />
+
           </Routes>
         </main>
 
