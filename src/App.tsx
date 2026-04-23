@@ -8,6 +8,9 @@ import ProfilePage from './pages/ProfilePage';
 import VacancyDetailPage from './pages/VacancyDetails';
 import StartupDetailPage from './pages/StartupDetails';
 import CreateStartupPage from './pages/CreateStartupPage';
+import AllStartupsPage from './pages/AllStartupsPage';
+import AllVacanciesPage from './pages/AllVacanciesPage';
+import CreateVacancyPage from "./pages/CreateVacancyPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +55,15 @@ function App() {
             <Route path="/startups/:id" element={<StartupDetailPage />} />
 
             <Route path="/startups/create" element={<CreateStartupPage />} />
+
+            <Route path="/startups" element={<AllStartupsPage />} />
+
+            <Route path="/vacancies" element={<AllVacanciesPage />} />
+
+            <Route path="/startups/:id/vacancies/create" element={<CreateVacancyPage />} />
+
+
+
 
           </Routes>
         </main>

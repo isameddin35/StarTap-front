@@ -556,7 +556,7 @@ export default function VacancyDetailPage() {
               <Card className="border border-gray-200">
                 <CardContent className="p-5 space-y-4">
                   <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
-                    Startup
+                    Startap
                   </p>
 
                   {/* Startup identity */}

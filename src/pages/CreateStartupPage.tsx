@@ -166,7 +166,7 @@ export default function CreateStartupPage() {
               {/* Tagline */}
               <div className="space-y-1.5">
                 <Label htmlFor="tagline" className="text-sm font-medium text-gray-700">
-                  Tagline <span className="text-red-500">*</span>
+                  Qısa başlıq <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="tagline"

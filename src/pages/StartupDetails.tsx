@@ -272,7 +272,7 @@ export default function StartupDetailPage() {
   if (!startup) {
     return (
       <div className="flex items-center justify-center py-32 text-gray-500">
-        Startup tapılmadı.
+        Startap tapılmadı.
       </div>
     );
   }
@@ -291,7 +291,7 @@ export default function StartupDetailPage() {
             className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Bütün startuplar
+            Bütün startaplar
           </button>
 
           <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -304,7 +304,7 @@ export default function StartupDetailPage() {
                 {isEditing ? (
                   <div className="space-y-2">
                     <div className="space-y-1">
-                      <Label className="text-xs text-gray-500">Startup adı</Label>
+                      <Label className="text-xs text-gray-500">Startap adı</Label>
                       <Input
                         value={draft.name}
                         onChange={(e) => setDraft({ ...draft, name: e.target.value })}
@@ -386,7 +386,7 @@ export default function StartupDetailPage() {
             <Card className="border border-gray-200">
               <CardContent className="p-6 space-y-3">
                 <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
-                  Startup haqqında
+                  Startap haqqında
                 </p>
                 {isEditing ? (
                   <Textarea
@@ -514,6 +514,17 @@ export default function StartupDetailPage() {
                     </div>
 
                     <div className="border-t border-gray-100 pt-3 space-y-2">
+
+
+                      {/* ✅ NEW BUTTON */}
+                      <Button
+                        className="w-full h-11 bg-blue-600 text-white hover:bg-blue-700 gap-2"
+                        onClick={() => navigate(`/startups/${startup.id}/vacancies/create`)}
+                      >
+                        <Briefcase className="w-4 h-4" />
+                        Vakansiya yarat
+                      </Button>
+
                       {!isEditing && (
                         <Button
                           className="w-full h-11 bg-gray-900 text-white hover:bg-gray-800 gap-2"
@@ -558,7 +569,7 @@ export default function StartupDetailPage() {
                   </>
                 ) : (
                   <div className="py-1 text-center text-sm text-gray-400">
-                    Bu startupun sahibi deyilsiniz.
+                    Bu startapun sahibi deyilsiniz.
                   </div>
                 )}
               </CardContent>

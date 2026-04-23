@@ -16,8 +16,20 @@ export default function RegisterPage({ setIsLoggedIn }: RegisterPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isFormInvalid =
+  !username.trim() ||
+  !email.trim() ||
+  !password.trim();
+
+
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+
+  
+  if(isFormInvalid){
+    alert("Məlumatlar boş ola bilməz")
+    return;
+  }
 
   try {
     const response = await fetch("/api/auth/register", {  //REST API
@@ -70,7 +82,7 @@ export default function RegisterPage({ setIsLoggedIn }: RegisterPageProps) {
         <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-                Ad
+                Ad<span className="text-red-500">*</span>
               </Label>
               <Input
                 id="username"
@@ -85,7 +97,7 @@ export default function RegisterPage({ setIsLoggedIn }: RegisterPageProps) {
 
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                Email
+                Email<span className="text-red-500">*</span>
               </Label>
               <Input
                 id="email"
@@ -100,7 +112,7 @@ export default function RegisterPage({ setIsLoggedIn }: RegisterPageProps) {
 
             <div className="space-y-2">
               <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                Şifrə
+                Şifrə<span className="text-red-500">*</span>
               </Label>
               <Input
                 id="password"
@@ -116,6 +128,7 @@ export default function RegisterPage({ setIsLoggedIn }: RegisterPageProps) {
             <Button
               type="submit"
               className="w-full h-11 bg-gray-900 text-white hover:bg-gray-800 font-medium"
+              disabled={isFormInvalid}
             >
               Register
             </Button>

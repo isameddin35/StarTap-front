@@ -34,7 +34,7 @@ type VacancyDto = {
   salary: number;
   isActive: boolean;
   createdAt: string;
-  startupResponseDto: {
+  startup: {
     id: number;
     name: string;
     category: string;
@@ -46,8 +46,8 @@ type VacancyDto = {
 const features = [
   {
     icon: Rocket,
-    title: "Startupınızı paylaşın",
-    description: "Öz startupunuzu dünyaya təqdim edin",
+    title: "Startapınızı paylaşın",
+    description: "Öz startapınızı dünyaya təqdim edin",
     color: "text-blue-500",
     bg: "bg-blue-50",
   },
@@ -111,7 +111,9 @@ export default function HomePage() {
         const res = await fetch("/api/vacancies");
         if (!res.ok) throw new Error("Failed to fetch vacancies");
         const data = await res.json();
+
         setVacancies(data);
+
       } catch (err) {
         console.error(err);
       } finally {
@@ -130,12 +132,12 @@ export default function HomePage() {
       <section className="bg-gradient-to-b from-blue-50 to-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Startupınızı paylaşın,
+            Startapınızı paylaşın,
             <br />
             <span className="text-blue-600">yeni ideyalar kəşf edin</span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            StartTap — innovasiya və startuplar üçün platformadır. Öz startupunuzu
+            StartTap — innovasiya və startaplar üçün platformadır. Öz startapınızı
             paylaşın, yeni ideyalar kəşf edin və cəmiyyətlə əlaqə qurun.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -145,7 +147,7 @@ export default function HomePage() {
                   onClick={() => navigate("/startups/create")}
                   className="bg-gray-900 text-white hover:bg-gray-800 px-7 py-5 text-base font-medium"
                 >
-                  Startup əlavə et
+                  Startap əlavə et
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
@@ -198,7 +200,7 @@ export default function HomePage() {
       {/* ── Latest startups ── */}
       <section className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Son startuplar</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Son startaplar</h2>
           <Link
             to="/startups"
             className="text-sm text-blue-600 hover:underline inline-flex items-center gap-1"
@@ -212,7 +214,7 @@ export default function HomePage() {
           <div className="text-sm text-gray-400 py-8 text-center">Yüklənir...</div>
         ) : startups.length === 0 ? (
           <div className="text-sm text-gray-400 py-8 text-center">
-            Hələ heç bir startup əlavə edilməyib.
+            Hələ heç bir startap əlavə edilməyib.
           </div>
         ) : (
           <div className="grid md:grid-cols-3 gap-5">
@@ -231,7 +233,7 @@ export default function HomePage() {
                         <p className="text-xs text-gray-500 truncate">
                           {startup.owner?.firstname + " " + startup.owner?.lastname}
                         </p>
-                        
+
                       </div>
                     </div>
 
@@ -255,11 +257,10 @@ export default function HomePage() {
                         )}
                       </div>
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                          startup.isActive
+                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${startup.isActive
                             ? "bg-green-100 text-green-700"
                             : "bg-gray-100 text-gray-500"
-                        }`}
+                          }`}
                       >
                         {startup.isActive ? "Aktiv" : "Deaktiv"}
                       </span>
@@ -294,7 +295,11 @@ export default function HomePage() {
         ) : (
           <div className="grid md:grid-cols-3 gap-5">
             {vacancies.slice(0, 6).map((vacancy) => (
-              <Link to={`/vacancies/${vacancy.id}`} key={vacancy.id}>
+              <div
+                key={vacancy.id}
+                onClick={() => navigate(`/vacancies/${vacancy.id}`)}
+                className="cursor-pointer"
+              >
                 <Card className="border border-gray-200 hover:shadow-sm hover:border-gray-300 transition-all cursor-pointer h-full">
                   <CardContent className="p-5 space-y-3">
                     <div className="flex items-center gap-3">
@@ -306,11 +311,11 @@ export default function HomePage() {
                           {vacancy.title}
                         </h3>
                         <Link
-                          to={`/startups/${vacancy.startupResponseDto?.id}`}
+                          to={`/startups/${vacancy.startup?.id}`}
                           onClick={(e) => e.stopPropagation()}
                           className="text-xs text-blue-600 hover:underline truncate block"
                         >
-                          {vacancy.startupResponseDto?.name ?? "Naməlum startup"}
+                          {vacancy.startup?.name ?? "Naməlum startap"}
                         </Link>
                       </div>
                     </div>
@@ -323,11 +328,10 @@ export default function HomePage() {
 
                     <div className="flex items-center justify-between pt-1">
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                          vacancy.isActive
+                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${vacancy.isActive
                             ? "bg-green-100 text-green-700"
                             : "bg-gray-100 text-gray-500"
-                        }`}
+                          }`}
                       >
                         {vacancy.isActive ? "Aktiv" : "Deaktiv"}
                       </span>
@@ -337,7 +341,7 @@ export default function HomePage() {
                     </div>
                   </CardContent>
                 </Card>
-              </Link>
+              </div>
             ))}
           </div>
         )}
@@ -350,10 +354,10 @@ export default function HomePage() {
             <Rocket className="w-5 h-5 text-blue-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
-            Startupunuz var?
+            Startapınız var?
           </h2>
           <p className="text-gray-600 max-w-md mx-auto text-sm leading-relaxed">
-            Startupunuzu platformaya əlavə edin, vakansiyalar yerləşdirin və
+            Startapınızı platformaya əlavə edin, vakansiyalar yerləşdirin və
             istedadlı insanlarla tanış olun.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -361,7 +365,7 @@ export default function HomePage() {
               onClick={() => navigate(isLoggedIn ? "/startups/create" : "/register")}
               className="bg-gray-900 text-white hover:bg-gray-800 px-7 py-5 text-base font-medium"
             >
-              Startupumu əlavə et
+              Startapımı əlavə et
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             {!isLoggedIn && (

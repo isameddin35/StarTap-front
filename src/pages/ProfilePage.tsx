@@ -273,7 +273,7 @@ const ProfilePage: React.FC = () => {
 
             <div>
               <p className="text-sm text-gray-500 mb-3">
-                Yeni CV yükləmək üçün faylı seçin (PDF, maks 5MB)
+                Yeni CV yükləmək üçün faylı seçin (PDF, DOCX maks 5MB)
               </p>
               <div className="flex items-center gap-3 flex-wrap">
                 <label

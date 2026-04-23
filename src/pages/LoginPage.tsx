@@ -14,8 +14,18 @@ export default function LoginPage({ setIsLoggedIn }: LoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+
+  const isFormInvalid = 
+  !email.trim() ||
+  !password.trim();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+
+    if(isFormInvalid){
+      alert("Məlumatlar boş ola bilməz")
+    }
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -73,7 +83,7 @@ export default function LoginPage({ setIsLoggedIn }: LoginPageProps) {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                Email
+                Email<span className="text-red-500">*</span>
               </Label>
               <Input
                 id="email"
@@ -88,7 +98,7 @@ export default function LoginPage({ setIsLoggedIn }: LoginPageProps) {
 
             <div className="space-y-2">
               <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                Şifrə
+                Şifrə<span className="text-red-500">*</span>
               </Label>
               <Input
                 id="password"
@@ -104,6 +114,7 @@ export default function LoginPage({ setIsLoggedIn }: LoginPageProps) {
             <Button
               type="submit"
               className="w-full h-11 bg-gray-900 text-white hover:bg-gray-800 font-medium"
+              disabled={isFormInvalid}
             >
               Login
             </Button>
